@@ -1,14 +1,14 @@
-# docker file for building Go application
-FROM ubuntu:latest
-
-# Install dependencies
-RUN sudo apt install -y git go wget
-
-COPY . /app
-
+# Build Stage
+FROM golang:1.19-alpine3.16 AS builder
 WORKDIR /app
+COPY . .
+RUN go build -o main main.go 
 
-# Build the application
-RUN go build -o main .
+# Run Stage
+FROM alpine:3.16
+WORKDIR /app
+COPY --from=builder /app/main .
+COPY app.env . 
 
-CMD [ "main" ]
+EXPOSE 8080
+CMD [ "/app/main" ]
