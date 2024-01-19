@@ -29,6 +29,6 @@ func (s *Server) registerRoutes() {
 	v1Router.RegisterRoutes(baseRouter)
 }
 
-func (s *Server) Start() error {
-	return s.router.Run()
+func (s *Server) Start(address string) error {
+	return s.router.Run(address)
 }
