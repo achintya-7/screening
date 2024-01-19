@@ -10,8 +10,8 @@ import (
 )
 
 type Querier interface {
-	InsertUser(ctx context.Context) (sql.Result, error)
-	UpdateUser(ctx context.Context) (sql.Result, error)
+	InsertUser(ctx context.Context, arg InsertUserParams) (sql.Result, error)
+	UpdateUser(ctx context.Context, arg UpdateUserParams) (sql.Result, error)
 }
 
 var _ Querier = (*Queries)(nil)

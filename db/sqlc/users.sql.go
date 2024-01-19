@@ -11,21 +11,32 @@ import (
 )
 
 const insertUser = `-- name: InsertUser :execresult
-INSERT INTO users (name, email) VALUES ($1, $2)
+INSERT INTO users (name, email) VALUES (?, ?)
 `
 
-func (q *Queries) InsertUser(ctx context.Context) (sql.Result, error) {
-	return q.db.ExecContext(ctx, insertUser)
+type InsertUserParams struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+func (q *Queries) InsertUser(ctx context.Context, arg InsertUserParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, insertUser, arg.Name, arg.Email)
 }
 
 const updateUser = `-- name: UpdateUser :execresult
 UPDATE users 
 SET 
-    name = COALESCE($2, name),
-    email = COALESCE($3, email)
-WHERE id = $1
+    name = COALESCE(?, name),
+    email = COALESCE(?, email)
+WHERE id = ?
 `
 
-func (q *Queries) UpdateUser(ctx context.Context) (sql.Result, error) {
-	return q.db.ExecContext(ctx, updateUser)
+type UpdateUserParams struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+	ID    int64  `json:"id"`
+}
+
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, updateUser, arg.Name, arg.Email, arg.ID)
 }
