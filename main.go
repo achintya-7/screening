@@ -6,6 +6,8 @@ import (
 	db "screening/db/sqlc"
 	"screening/internal/app"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	"go.uber.org/zap"
 )
 

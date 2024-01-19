@@ -16,7 +16,7 @@ func (rh *RouteHandler) CreateUser(c *gin.Context) (*string, *dto.ErrorResponse)
 	logger := util.NewLoggerWithCorrelationId(c)
 
 	var req dto.CreateUserRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
+	if err := c.ShouldBind(&req); err != nil {
 		logger.Error("error while binding request", zap.Error(err))
 		return nil, &dto.ErrorResponse{
 			Code:           http.StatusBadRequest,

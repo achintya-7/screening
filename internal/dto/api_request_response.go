@@ -24,7 +24,7 @@ type CreateUserRequest struct {
 }
 
 type UpdateUserRequest struct {
-	Name  string `form:"name" binding:"required"`
-	Email string `form:"email" binding:"required"`
-	Id    int64  `form:"id" binding:"required"`
+	Name  string `json:"name" binding:"required"`
+	Email string `json:"email" binding:"required"`
+	Id    int64  `json:"id" binding:"required"`
 }

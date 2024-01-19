@@ -25,6 +25,7 @@ func NewServer(store db.Store) *Server {
 func (s *Server) registerRoutes() {
 	baseRouter := s.router.Group("service-name")
 
+	// V1 ROUTES
 	v1Router := v1.NewRouter(s.store)
 	v1Router.RegisterRoutes(baseRouter)
 }
